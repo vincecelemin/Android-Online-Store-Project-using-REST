@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -17,8 +18,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.CookieStore;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +29,13 @@ public class SignUpCustomer extends AppCompatActivity {
 
     private Button cancelBtn;
     private Button signUpBtn;
+    private EditText firstNameInput;
+    private EditText lastNameInput;
+    private EditText usernameInput;
+    private EditText emailInput;
+    private EditText passwordInput;
+    private EditText confirmPasswordInput;
+
     private static final String TAG = SignUpCustomer.class.getSimpleName();
 
     @Override
@@ -61,8 +71,35 @@ public class SignUpCustomer extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.d(TAG, response.toString());
 
-                Toast.makeText(getApplicationContext(),
-                        response.toString(), Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject responseObject = new JSONObject(response);
+                    String status = responseObject.getString("status");
+                    if(status.equals("success")){
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Registration Successful",
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                        Intent backToHomeIntent = new Intent();
+                        setResult(RESULT_OK, backToHomeIntent);
+                        finish();
+                    } else {
+                        String message = responseObject.getString("message");
+                        Toast.makeText(
+                                getApplicationContext(),
+                                message,
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                Toast.makeText(getApplicationContext(),
+//                        response,
+//                        Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
 
@@ -76,6 +113,12 @@ public class SignUpCustomer extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("first_name", firstNameInput.getText().toString().trim());
+                parameters.put("last_name", lastNameInput.getText().toString().trim());
+                parameters.put("username", usernameInput.getText().toString().trim());
+                parameters.put("email_address", emailInput.getText().toString().trim());
+                parameters.put("password", passwordInput.getText().toString().trim());
+                parameters.put("confirm_password", confirmPasswordInput.getText().toString().trim());
                 return parameters;
             }
         };
@@ -85,6 +128,13 @@ public class SignUpCustomer extends AppCompatActivity {
     private void initResources() {
         cancelBtn = (Button) findViewById(R.id.cancelBtn);
         signUpBtn = (Button) findViewById(R.id.signUpBtn);
+
+        firstNameInput = (EditText) findViewById(R.id.firstNameInput);
+        lastNameInput = (EditText) findViewById(R.id.lastNameInput);
+        usernameInput = (EditText) findViewById(R.id.usernameInput);
+        emailInput = (EditText) findViewById(R.id.emailInput);
+        passwordInput = (EditText) findViewById(R.id.passwordInput);
+        confirmPasswordInput = (EditText) findViewById(R.id.confirmPasswordInput);
     }
 
     @Override
