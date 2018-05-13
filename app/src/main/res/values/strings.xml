@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Concept</string>
+    <string name="app_name_caps">CONCEPT</string>
+    <string name="sign_up_store">New Store</string>
+    <string name="sign_up_customer">New User</string>
+    <string name="sign_up_customer_proceed">Sign Up</string>
+    <string name="sign_up_store_proceed">Add Store</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="customerRestURL">http://10.0.2.2/FinalProject/public/customer/</string>
+</resources>
