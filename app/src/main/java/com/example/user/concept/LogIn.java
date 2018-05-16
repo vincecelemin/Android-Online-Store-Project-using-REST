@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ public class LogIn extends AppCompatActivity {
 
     private EditText usernameInput;
     private EditText passwordInput;
+
+    private CheckBox rememberCheckBox;
 
     private static final String TAG = LogIn.class.getSimpleName();
 
@@ -80,8 +83,11 @@ public class LogIn extends AppCompatActivity {
                         editor = sharedPreferences.edit();
 
                         editor.putString(PROFILE_NAME_KEY, account_data.getString("first_name") + " " + account_data.getString("last_name"));
-                        editor.putBoolean(USER_LOGGED_KEY, true);
-                        editor.putInt(PROFILE_ID_KEY, Integer.parseInt(account_data.getString("profile_id")));
+
+                        if(rememberCheckBox.isChecked()){
+                            editor.putBoolean(USER_LOGGED_KEY, true);
+                            editor.putInt(PROFILE_ID_KEY, Integer.parseInt(account_data.getString("profile_id")));
+                        }
                         editor.commit();
 
                         startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
@@ -126,6 +132,8 @@ public class LogIn extends AppCompatActivity {
         usernameInput = (EditText) findViewById(R.id.usernameInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
 
+        rememberCheckBox = (CheckBox) findViewById(R.id.rememberMeCheck);
+
         sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
 
         if(sharedPreferences.contains(PROFILE_ID_KEY) && sharedPreferences.getBoolean(USER_LOGGED_KEY, false)){
@@ -143,7 +151,7 @@ public class LogIn extends AppCompatActivity {
                     startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
                     break;
             }
-        } else if(requestCode == 3){
+        } else if(requestCode == 2){
             switch(resultCode){
                 case RESULT_CANCELED:
                     editor = sharedPreferences.edit();

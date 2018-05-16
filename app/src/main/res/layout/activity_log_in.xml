@@ -61,7 +61,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwordInput"
+        android:gravity="right"
+        android:id="@+id/rememberHolder"
+        android:layout_below="@+id/passwordInput"
+        android:layout_marginBottom="4dp">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/rememberMeCheck"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember Me"
+            android:layout_alignParentRight="true"
+            android:textSize="18sp"
+            android:paddingVertical="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rememberHolder"
         android:id="@+id/btnContainer">
         <Button
             android:layout_width="0dp"
