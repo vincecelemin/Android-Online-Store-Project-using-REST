@@ -19,8 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpCustomer"
-            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".SignUpCustomer"
+            android:theme="@style/AppThemeNav" />
+        <activity
+            android:name=".ProductView"
+            android:label="@string/title_activity_product_view"
+            android:theme="@style/AppThemeNav"></activity>
     </application>
 
 </manifest>

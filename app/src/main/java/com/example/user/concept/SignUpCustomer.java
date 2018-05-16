@@ -135,6 +135,8 @@ public class SignUpCustomer extends AppCompatActivity {
         emailInput = (EditText) findViewById(R.id.emailInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
         confirmPasswordInput = (EditText) findViewById(R.id.confirmPasswordInput);
+
+        getSupportActionBar().setTitle("Sign Up to Concept");
     }
 
     @Override

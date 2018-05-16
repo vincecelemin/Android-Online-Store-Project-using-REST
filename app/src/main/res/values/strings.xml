@@ -8,4 +8,11 @@
     <string name="cancel">Cancel</string>
 
     <string name="customerRestURL">http://10.0.2.2/FinalProject/public/customer</string>
+    <string name="title_activity_product_view">ProductView</string>
+    <string name="title_shop_tab">Shop</string>
+    <string name="title_cart_tab">Cart</string>
+    <string name="title_user_tab">Account</string>
+
+
+    <string name="authenticateUserURL">http://10.0.2.2/FinalProject/public/customer/authenticate</string>
 </resources>
