@@ -38,16 +38,17 @@
         android:background="#000"
         android:textColor="#fff"
         android:textColorHint="#fff"
-        android:hint="username"
+        android:hint="email address"
+        android:inputType="textEmailAddress"
         android:padding="8dp"
         android:textSize="24sp"
-        android:id="@+id/usernameInput"
+        android:id="@+id/emailInput"
         android:layout_marginBottom="8dp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/usernameInput"
+        android:layout_below="@id/emailInput"
         android:background="#000"
         android:textColor="#fff"
         android:textColorHint="#fff"

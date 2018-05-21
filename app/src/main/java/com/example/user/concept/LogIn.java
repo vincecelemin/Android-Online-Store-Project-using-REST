@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,7 +31,7 @@ public class LogIn extends AppCompatActivity {
     private Button newUserBtn;
     private Button logInBtn;
 
-    private EditText usernameInput;
+    private EditText emailInput;
     private EditText passwordInput;
 
     private CheckBox rememberCheckBox;
@@ -70,7 +71,7 @@ public class LogIn extends AppCompatActivity {
 
     private void authenticateUser() {
 
-        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.authenticateUserURL), new Response.Listener<String>() {
+        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.authenticateCustomerURL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, response.toString());
@@ -78,17 +79,23 @@ public class LogIn extends AppCompatActivity {
                 try {
                     JSONObject responseObject = new JSONObject(response);
                     String status = responseObject.getString("status");
-                    if(status.equals("success")){
+                    if (status.equals("success")) {
                         JSONObject account_data = new JSONObject(responseObject.getString("profile_data"));
                         editor = sharedPreferences.edit();
 
                         editor.putString(PROFILE_NAME_KEY, account_data.getString("first_name") + " " + account_data.getString("last_name"));
 
-                        if(rememberCheckBox.isChecked()){
+                        if (rememberCheckBox.isChecked()) {
                             editor.putBoolean(USER_LOGGED_KEY, true);
                             editor.putInt(PROFILE_ID_KEY, Integer.parseInt(account_data.getString("profile_id")));
                         }
                         editor.commit();
+
+                        Toast.makeText(
+                                LogIn.this,
+                                "Welcome " + sharedPreferences.getString(PROFILE_NAME_KEY, ""),
+                                Toast.LENGTH_LONG
+                        ).show();
 
                         startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
                     } else {
@@ -117,7 +124,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("username", usernameInput.getText().toString().trim());
+                parameters.put("email", emailInput.getText().toString().trim());
                 parameters.put("password", passwordInput.getText().toString().trim());
                 return parameters;
             }
@@ -129,14 +136,14 @@ public class LogIn extends AppCompatActivity {
         newUserBtn = (Button) findViewById(R.id.newUserBtn);
         logInBtn = (Button) findViewById(R.id.logInBtn);
 
-        usernameInput = (EditText) findViewById(R.id.usernameInput);
+        emailInput = (EditText) findViewById(R.id.emailInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
 
         rememberCheckBox = (CheckBox) findViewById(R.id.rememberMeCheck);
 
         sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
 
-        if(sharedPreferences.contains(PROFILE_ID_KEY) && sharedPreferences.getBoolean(USER_LOGGED_KEY, false)){
+        if (sharedPreferences.contains(PROFILE_ID_KEY) && sharedPreferences.getBoolean(USER_LOGGED_KEY, false)) {
             startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
         }
     }
@@ -145,15 +152,17 @@ public class LogIn extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1){
-            switch(resultCode){
+        if (requestCode == 1) {
+            switch (resultCode) {
                 case RESULT_OK:
                     startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
                     break;
             }
-        } else if(requestCode == 2){
-            switch(resultCode){
+        } else if (requestCode == 2) {
+            switch (resultCode) {
                 case RESULT_CANCELED:
+                    passwordInput.setText("");
+                    emailInput.setText("");
                     editor = sharedPreferences.edit();
                     editor.clear();
                     editor.commit();

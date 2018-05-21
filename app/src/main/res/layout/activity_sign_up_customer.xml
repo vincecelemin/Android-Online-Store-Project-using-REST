@@ -37,16 +37,53 @@
             android:layout_below="@id/firstNameInput"/>
 
         <EditText
-            android:id="@+id/usernameInput"
+            android:id="@+id/addressInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            android:hint="desired username"
+            android:hint="address"
+            android:inputType="text"
             android:padding="8dp"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent"
             android:layout_marginBottom="8dp"
             android:layout_below="@id/lastNameInput"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/genderRadio"
+            android:layout_below="@+id/addressInput"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="#000"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textColor="#fff"/>
+            <RadioButton
+                android:id="@+id/maleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:checked="true"
+                android:layout_marginLeft="8dp"
+                android:onClick="changeGenderValue"/>
+
+            <RadioButton
+                android:id="@+id/femaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:layout_marginLeft="8dp"
+                android:onClick="changeGenderValue"/>
+        </RadioGroup>
 
         <EditText
             android:id="@+id/emailInput"
@@ -59,7 +96,7 @@
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent"
             android:layout_marginBottom="8dp"
-            android:layout_below="@id/usernameInput"/>
+            android:layout_below="@id/genderRadio"/>
 
         <EditText
             android:id="@+id/passwordInput"

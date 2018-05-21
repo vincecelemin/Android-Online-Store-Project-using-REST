@@ -1,7 +1,9 @@
 package com.example.user.concept;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,12 +34,19 @@ public class SignUpCustomer extends AppCompatActivity {
     private Button signUpBtn;
     private EditText firstNameInput;
     private EditText lastNameInput;
-    private EditText usernameInput;
     private EditText emailInput;
     private EditText passwordInput;
     private EditText confirmPasswordInput;
+    private EditText addressInput;
+    private char gender;
 
     private static final String TAG = SignUpCustomer.class.getSimpleName();
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private static final String ACCOUNT_PREFERENCE = "accountPref";
+    private static final String PROFILE_ID_KEY = "profile_id";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +76,17 @@ public class SignUpCustomer extends AppCompatActivity {
     }
 
     private void registerAccount() {
-        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.customerRestURL), new Response.Listener<String>() {
+        if(!passwordInput.getText().toString().trim().equals(confirmPasswordInput.getText().toString().trim())) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Passwords do not Match",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            return;
+        }
+
+        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.registerCustomerAccountURL), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, response.toString());
@@ -75,6 +95,12 @@ public class SignUpCustomer extends AppCompatActivity {
                     JSONObject responseObject = new JSONObject(response);
                     String status = responseObject.getString("status");
                     if(status.equals("success")){
+                        sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
+
+                        editor = sharedPreferences.edit();
+                        editor.putInt(PROFILE_ID_KEY, responseObject.getInt("customer_id"));
+                        editor.commit();
+
                         Toast.makeText(
                                 getApplicationContext(),
                                 "Registration Successful",
@@ -115,10 +141,10 @@ public class SignUpCustomer extends AppCompatActivity {
                 Map<String, String> parameters = new HashMap<String, String>();
                 parameters.put("first_name", firstNameInput.getText().toString().trim());
                 parameters.put("last_name", lastNameInput.getText().toString().trim());
-                parameters.put("username", usernameInput.getText().toString().trim());
-                parameters.put("email_address", emailInput.getText().toString().trim());
+                parameters.put("address", addressInput.getText().toString().trim());
+                parameters.put("gender", String.valueOf(gender));
+                parameters.put("email", emailInput.getText().toString().trim());
                 parameters.put("password", passwordInput.getText().toString().trim());
-                parameters.put("confirm_password", confirmPasswordInput.getText().toString().trim());
                 return parameters;
             }
         };
@@ -131,12 +157,30 @@ public class SignUpCustomer extends AppCompatActivity {
 
         firstNameInput = (EditText) findViewById(R.id.firstNameInput);
         lastNameInput = (EditText) findViewById(R.id.lastNameInput);
-        usernameInput = (EditText) findViewById(R.id.usernameInput);
         emailInput = (EditText) findViewById(R.id.emailInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
         confirmPasswordInput = (EditText) findViewById(R.id.confirmPasswordInput);
+        addressInput = (EditText) findViewById(R.id.addressInput);
+        gender = 'M';
 
         getSupportActionBar().setTitle("Sign Up to Concept");
+    }
+
+    public void changeGenderValue(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.maleRadioButton:
+                if (checked)
+                    gender = 'M';
+                    break;
+            case R.id.femaleRadioButton:
+                if (checked)
+                    gender = 'F';
+                    break;
+        }
+
     }
 
     @Override
