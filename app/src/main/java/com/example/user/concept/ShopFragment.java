@@ -75,12 +75,13 @@ public class ShopFragment extends Fragment {
                             productCard.setPrice(productItem.getDouble("price"));
                             productCard.setProductId(productItem.getInt("id"));
                             productCardList.add(productCard);
-                            productIndexRecyclerView.setHasFixedSize(true);
-                            productIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
-
-                            ProductCardListAdapter productCardListAdapter = new ProductCardListAdapter(getActivity().getApplicationContext(), productCardList);
-                            productIndexRecyclerView.setAdapter(productCardListAdapter);
                         }
+
+                        productIndexRecyclerView.setHasFixedSize(true);
+                        productIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+
+                        ProductCardListAdapter productCardListAdapter = new ProductCardListAdapter(getActivity().getApplicationContext(), productCardList);
+                        productIndexRecyclerView.setAdapter(productCardListAdapter);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
