@@ -1,6 +1,8 @@
 package com.example.user.concept;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,14 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
                 .load("http://10.0.2.2/WebFramFinalProj/public/storage/product_images/" + productCardItem.getImageName())
                 .into(holder.productLogo);
 
+        holder.viewProductBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mCtx, ViewProduct.class);
+                intent.putExtra("product_id", productCardItem.getProductId());
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -63,6 +73,7 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
             productPrice = (TextView) itemView.findViewById(R.id.cardProductPrice);
 
             // Buttons
+            viewProductBtn = (Button) itemView.findViewById(R.id.cardViewProductBtn);
         }
     }
 }

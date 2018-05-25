@@ -73,7 +73,7 @@ public class ShopFragment extends Fragment {
                             productCard.setSeller(productItem.getString("shop_name"));
                             productCard.setImageName(productItem.getString("image_location"));
                             productCard.setPrice(productItem.getDouble("price"));
-
+                            productCard.setProductId(productItem.getInt("id"));
                             productCardList.add(productCard);
                             productIndexRecyclerView.setHasFixedSize(true);
                             productIndexRecyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));

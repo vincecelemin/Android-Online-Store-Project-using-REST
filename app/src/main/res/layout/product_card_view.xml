@@ -74,20 +74,23 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/cardAddToCartBtn"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_weight="1"
-                        android:background="#000"
-                        android:drawableStart="@drawable/sharp_shopping_cart_white_24"
-                        android:padding="4dp" />
+                    <!--<Button-->
+                        <!--android:id="@+id/cardAddToCartBtn"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="35dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="#000"-->
+                        <!--android:drawableStart="@drawable/sharp_shopping_cart_white_24"-->
+                        <!--android:padding="4dp" />-->
 
                     <Button
                         android:id="@+id/cartAddToWishlist"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginHorizontal="4dp"
+                        android:text="wish"
+                        android:textColor="#fff"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
                         android:layout_weight="1"
                         android:background="#000"
                         android:drawableLeft="@drawable/sharp_star_white_24"
@@ -99,6 +102,9 @@
                         android:layout_height="35dp"
                         android:layout_weight="1"
                         android:background="#000"
+                        android:text="view"
+                        android:textColor="#fff"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
                         android:drawableLeft="@drawable/sharp_remove_red_eye_white_24"
                         android:padding="4dp" />
                 </LinearLayout>

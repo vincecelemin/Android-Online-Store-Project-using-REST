@@ -29,9 +29,10 @@
         <activity
             android:name=".UpdateProfile"
             android:theme="@style/AppThemeNav" />
-
-        <activity android:name=".ChangePassword"
-            android:theme="@style/AppThemeNav" ></activity>
+        <activity
+            android:name=".ChangePassword"
+            android:theme="@style/AppThemeNav" />
+        <activity android:name=".ViewProduct"></activity>
     </application>
 
 </manifest>

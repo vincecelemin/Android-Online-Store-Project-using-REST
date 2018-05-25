@@ -4,6 +4,7 @@ public class ProductCardItem {
     private String name;
     private String seller;
     private String imageName;
+    private int productId;
     private double price;
 
     public String getName() {
@@ -36,5 +37,13 @@ public class ProductCardItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 }
