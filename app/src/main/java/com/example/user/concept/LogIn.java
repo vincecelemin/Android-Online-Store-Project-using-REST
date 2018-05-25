@@ -84,10 +84,10 @@ public class LogIn extends AppCompatActivity {
                         editor = sharedPreferences.edit();
 
                         editor.putString(PROFILE_NAME_KEY, account_data.getString("first_name") + " " + account_data.getString("last_name"));
+                        editor.putInt(PROFILE_ID_KEY, Integer.parseInt(account_data.getString("profile_id")));
 
                         if (rememberCheckBox.isChecked()) {
                             editor.putBoolean(USER_LOGGED_KEY, true);
-                            editor.putInt(PROFILE_ID_KEY, Integer.parseInt(account_data.getString("profile_id")));
                         }
                         editor.commit();
 
