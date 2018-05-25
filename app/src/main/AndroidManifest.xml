@@ -26,7 +26,11 @@
             android:name=".ProductView"
             android:label="@string/title_activity_product_view"
             android:theme="@style/AppThemeNav" />
-        <activity android:name=".UpdateProfile"
+        <activity
+            android:name=".UpdateProfile"
+            android:theme="@style/AppThemeNav" />
+
+        <activity android:name=".ChangePassword"
             android:theme="@style/AppThemeNav" ></activity>
     </application>
 

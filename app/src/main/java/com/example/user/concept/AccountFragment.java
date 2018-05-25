@@ -73,6 +73,17 @@ public class AccountFragment extends Fragment {
                 startActivityForResult(intent, 0);
             }
         });
+
+        accountChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChangePassword.class);
+
+                intent.putExtra("email", customerEmail.getText().toString());
+
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
     @Override
@@ -86,6 +97,21 @@ public class AccountFragment extends Fragment {
                         Toast.makeText(
                                 getActivity().getApplicationContext(),
                                 "Your profile has been updated",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        getActivity().finish();
+                        startActivity(getActivity().getIntent());
+                    }
+                    break;
+            }
+        } else if (requestCode == 1) {
+            switch(resultCode) {
+                case RESULT_OK:
+                    if(data.getStringExtra("status").equals("success")) {
+                        Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                "Your password has been updated",
                                 Toast.LENGTH_SHORT
                         ).show();
 

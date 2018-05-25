@@ -17,4 +17,5 @@
     <string name="getProductViewIndexProducts">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getProductViewIndexProducts.php</string>
     <string name="getProfileInformation">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getProfileInformation.php</string>
     <string name="updateProfileInformation">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/updateProfileInformation.php</string>
+    <string name="updateCustomerPassword">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/updateCustomerPassword.php</string>
 </resources>
