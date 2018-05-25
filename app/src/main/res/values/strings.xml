@@ -19,4 +19,5 @@
     <string name="updateProfileInformation">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/updateProfileInformation.php</string>
     <string name="updateCustomerPassword">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/updateCustomerPassword.php</string>
     <string name="getProductInformation">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getProductInformation.php</string>
+    <string name="addItemToCart">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/addItemToCart.php</string>
 </resources>

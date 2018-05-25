@@ -83,8 +83,53 @@ public class ViewProduct extends AppCompatActivity {
 
                     return;
                 }
+
+                addItemToCart();
             }
         });
+    }
+
+    private void addItemToCart() {
+        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.addItemToCart), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, response.toString());
+
+                try {
+                    JSONObject responseObj = new JSONObject(response);
+                    if(responseObj.getString("status").equals("success")) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                productName.getText().toString() + " is added to your cart",
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("product_id", String.valueOf(getIntent().getIntExtra("product_id", 0)));
+                parameters.put("profile_id", String.valueOf(sharedPreferences.getInt(PROFILE_ID_KEY, 0)));
+                parameters.put("quantity", String.valueOf(inputQuantity.getText().toString().trim()));
+                return parameters;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strRequest);
     }
 
     private void initResources() {
