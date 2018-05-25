@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,108 +38,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductView extends AppCompatActivity {
-
-    private static final String TAG = ProductView.class.getSimpleName();
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-    private static final String ACCOUNT_PREFERENCE = "accountPref";
-    private static final String PROFILE_NAME_KEY = "profile_name", USER_LOGGED_KEY = "userLogged", PROFILE_ID_KEY = "profile_id";
+public class ProductView extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private boolean logOut = false;
-
-    private ProductCardItem productCard;
-    private RecyclerView productIndexRecyclerView;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    finish();
-                    startActivity(getIntent());
-                    return true;
-                case R.id.navigation_dashboard:
-                    return true;
-                case R.id.navigation_notifications:
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_view);
 
-        initResources();
-    }
-
-    private void initResources() {
-        sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(this);
         getSupportActionBar().setTitle("Shop");
-        productIndexRecyclerView = (RecyclerView) findViewById(R.id.productRecyclerViewIndex);
-
-        setProductView();
+        loadFragment(new ShopFragment());
     }
-
-    private void setProductView() {
-        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.getProductViewIndexProducts), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, response.toString());
-                try {
-                    JSONObject responseObj = new JSONObject(response);
-                    if (responseObj.getString("status").equals("success")) {
-                        JSONArray productList = responseObj.getJSONArray("products");
-                        List<ProductCardItem> productCardList = new ArrayList<>();
-
-                        for (int i = 0; i < productList.length(); i++) {
-                            JSONObject productItem = new JSONObject(productList.get(i).toString());
-                            productCard = new ProductCardItem();
-
-                            productCard.setName(productItem.getString("name"));
-                            productCard.setSeller(productItem.getString("shop_name"));
-                            productCard.setImageName(productItem.getString("image_location"));
-                            productCard.setPrice(productItem.getDouble("price"));
-
-                            productCardList.add(productCard);
-                            productIndexRecyclerView.setHasFixedSize(true);
-                            productIndexRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-
-                            ProductCardListAdapter productCardListAdapter = new ProductCardListAdapter(getApplicationContext(), productCardList);
-                            productIndexRecyclerView.setAdapter(productCardListAdapter);
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("profile_id", String.valueOf(sharedPreferences.getInt(PROFILE_ID_KEY, 0)));
-                return parameters;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(strRequest);
-    }
-
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
@@ -155,5 +68,43 @@ public class ProductView extends AppCompatActivity {
         Intent intent = getIntent();
         setResult(RESULT_CANCELED, intent);
         finish();
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if(fragment != null){
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.home_frame_layout, fragment)
+                    .commit();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+
+        switch(item.getItemId()){
+            case R.id.navigation_shop:
+                getSupportActionBar().setTitle("Shop");
+                fragment = new ShopFragment();
+                break;
+
+            case R.id.navigation_cart:
+                getSupportActionBar().setTitle("Cart");
+                fragment = new CartFragment();
+                break;
+
+            case R.id.navigation_account:
+                getSupportActionBar().setTitle("Account");
+                fragment = new AccountFragment();
+                break;
+        }
+
+        return loadFragment(fragment);
     }
 }

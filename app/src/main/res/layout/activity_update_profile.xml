@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="first name"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/accountFirstNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:hint="first name"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="last name"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/accountLastNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:hint="last name"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="delivery address"
+        android:textColor="#000" />
+    <EditText
+        android:id="@+id/accountAddressInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:hint="address"
+        android:inputType="text"
+        android:padding="8dp"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="email address"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/accountEmailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorPrimaryDark"
+        android:hint="email address"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
+        android:enabled="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="password (for validation)"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/accountPasswordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:hint="your password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/updateProfileCancelBtn"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="cancel"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:layout_marginRight="8dp" />
+
+        <Button
+            android:id="@+id/updateProfileBtn"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="update"
+            android:textAppearance="@style/TextAppearance.AppCompat" />
+    </LinearLayout>
+
+
+</LinearLayout>
