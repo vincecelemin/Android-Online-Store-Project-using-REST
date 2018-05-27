@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/dialogCurrentQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#000"
+        android:hint="quantity"
+        android:inputType="number"
+        android:padding="4dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/dialogAvailableStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="available"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1">-->
+
+        <!--<Button-->
+        <!--android:id="@+id/dialogCancel"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_marginRight="4dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/button_shape"-->
+        <!--android:text="cancel"-->
+        <!--android:textAppearance="@style/TextAppearance.AppCompat" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/dialogProceed"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="35dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/button_shape"-->
+        <!--android:text="proceed"-->
+        <!--android:textAppearance="@style/TextAppearance.AppCompat" />-->
+        <!--</LinearLayout>-->
+    </LinearLayout>
+</LinearLayout>

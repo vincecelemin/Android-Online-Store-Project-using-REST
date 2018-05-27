@@ -65,8 +65,7 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
 
     @Override
     public void onBackPressed() {
-        Intent intent = getIntent();
-        setResult(RESULT_CANCELED, intent);
+        setResult(RESULT_CANCELED, getIntent());
         finish();
     }
 
