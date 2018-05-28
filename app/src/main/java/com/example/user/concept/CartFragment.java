@@ -86,6 +86,7 @@ public class CartFragment extends Fragment {
                             cartItem.setCartProductPrice(cartObject.getDouble("price") * cartObject.getInt("quantity"));
                             cartItem.setCartQuantity(cartObject.getInt("quantity"));
                             cartItem.setCartProductId(cartObject.getInt("product_id"));
+                            cartItem.setCartImageLocation(cartObject.getString("image_location"));
 
                             cartItemArrayList.add(cartItem);
                         }

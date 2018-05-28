@@ -3,6 +3,16 @@ package com.example.user.concept;
 public class CartItem {
     private String cartProductName;
     private String cartProductSeller;
+    private String cartImageLocation;
+
+    public String getCartImageLocation() {
+        return cartImageLocation;
+    }
+
+    public void setCartImageLocation(String cartImageLocation) {
+        this.cartImageLocation = cartImageLocation;
+    }
+
     private double cartProductPrice;
     private int cartQuantity;
 

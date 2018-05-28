@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,6 +85,11 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
                 openEditQuantityDialog(String.valueOf(cartItem.getCartQuantity()), cartItem.getCartProductId(), cartItem.getCartItemId());
             }
         });
+
+        Picasso.get()
+                .load("http://10.0.2.2/WebFramFinalProj/public/storage/product_images/" + cartItem.getCartImageLocation())
+                .resize(100, 100)
+                .into(holder.cartProductImage);
     }
 
     private void openEditQuantityDialog(String productQuantity, int cartProductId, int cartId) {
@@ -143,6 +150,7 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
     public class CartItemHolder extends RecyclerView.ViewHolder {
         TextView cartProductName, cartProductSeller, cartProductPrice, cartProductQuantity;
         Button removeFromCartBtn, modifyQuantityBtn;
+        ImageView cartProductImage;
 
         public CartItemHolder(View itemView) {
             super(itemView);
@@ -154,6 +162,8 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
 
             removeFromCartBtn = (Button) itemView.findViewById(R.id.removeFromCartBtn);
             modifyQuantityBtn = (Button) itemView.findViewById(R.id.addMoreToCartBtn);
+
+            cartProductImage = (ImageView) itemView.findViewById(R.id.cartProductImage);
         }
     }
 }
