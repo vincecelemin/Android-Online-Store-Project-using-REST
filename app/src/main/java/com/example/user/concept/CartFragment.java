@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +40,8 @@ public class CartFragment extends Fragment {
 
     private CartItem cartItem;
     private RecyclerView cartRecyclerView;
+    private TextView totalItemCount;
+    private TextView totalProductCost;
 
     @Nullable
     @Override
@@ -51,6 +55,8 @@ public class CartFragment extends Fragment {
     private void initResources(View rootView) {
         sharedPreferences = getActivity().getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
         cartRecyclerView = (RecyclerView) rootView.findViewById(R.id.cartRecyclerView);
+        totalProductCost = (TextView) rootView.findViewById(R.id.totalProductCost);
+        totalItemCount = (TextView) rootView.findViewById(R.id.totalItemCount);
 
         setCartView();
     }
@@ -77,6 +83,8 @@ public class CartFragment extends Fragment {
                             return;
                         }
 
+                        double totalAmount = 0.00;
+                        int totalItems = 0;
                         for (int i = 0; i < cartList.length(); i++) {
                             JSONObject cartObject = new JSONObject(cartList.get(i).toString());
                             cartItem = new CartItem();
@@ -88,6 +96,9 @@ public class CartFragment extends Fragment {
                             cartItem.setCartProductId(cartObject.getInt("product_id"));
                             cartItem.setCartImageLocation(cartObject.getString("image_location"));
 
+                            totalItems += cartObject.getInt("quantity");
+                            totalAmount += cartItem.getCartProductPrice();
+
                             cartItemArrayList.add(cartItem);
                         }
 
@@ -97,6 +108,9 @@ public class CartFragment extends Fragment {
                         CartListItemAdapter cartListItemAdapter = new CartListItemAdapter(cartItemArrayList,
                                 getActivity().getApplicationContext(), getActivity().getSupportFragmentManager(), getActivity());
                         cartRecyclerView.setAdapter(cartListItemAdapter);
+
+                        totalItemCount.setText("Items: " + String.valueOf(totalItems));
+                        totalProductCost.setText("Total Amount: P " + String.format("%.2f", totalAmount));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
