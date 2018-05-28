@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,10 +58,10 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
         loadFragment(new ShopFragment());
         currentWindow = 0;
 
-//        if(sharedPreferences.contains(FRAGMENT_WINDOW_KEY)) {
-//            fragmentWindow = sharedPreferences.getInt(FRAGMENT_WINDOW_KEY, 0);
-//            loadFragmentFromKey();
-//        }
+        if(sharedPreferences.contains(FRAGMENT_WINDOW_KEY)) {
+            fragmentWindow = sharedPreferences.getInt(FRAGMENT_WINDOW_KEY, 0);
+            loadFragmentFromKey();
+        }
     }
 
     private void loadFragmentFromKey() {
@@ -111,6 +112,10 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+            } else {
+                navigation.setSelectedItemId(R.id.navigation_shop);
+                loadFragment(new ShopFragment());
+                currentWindow = 0;
             }
         }
     }
@@ -121,8 +126,9 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.home_frame_layout, fragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
-
+            getSupportFragmentManager().executePendingTransactions();
             return true;
         }
 
@@ -149,7 +155,6 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
             case R.id.navigation_account:
                 getSupportActionBar().setTitle("Account");
                 fragment = new AccountFragment();
-
                 currentWindow = 2;
                 break;
         }
