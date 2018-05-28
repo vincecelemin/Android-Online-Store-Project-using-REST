@@ -1,6 +1,10 @@
 package com.example.user.concept;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,6 +32,13 @@ public class AppController extends Application implements UpdateCartItemQuantity
     public static final String TAG = AppController.class.getSimpleName();
     private RequestQueue mRequestQueue;
     private static AppController mInstance;
+
+
+    private SharedPreferences sharedPreferences;
+    private static final String ACCOUNT_PREFERENCE = "accountPref";
+    private static final String FRAGMENT_WINDOW_KEY = "fragment";
+    private SharedPreferences.Editor editor;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -72,6 +83,13 @@ public class AppController extends Application implements UpdateCartItemQuantity
                                     "Item has been removed from your cart",
                                     Toast.LENGTH_LONG
                             ).show();
+
+                            sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
+                            Intent homeIntent = new Intent(AppController.this, ProductView.class);
+                            editor = sharedPreferences.edit();
+                            editor.putInt(FRAGMENT_WINDOW_KEY, 1);
+                            editor.commit();
+                            startActivity(homeIntent);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -107,6 +125,13 @@ public class AppController extends Application implements UpdateCartItemQuantity
                                     "Your cart has been updated",
                                     Toast.LENGTH_LONG
                             ).show();
+
+                            sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
+                            Intent homeIntent = new Intent(AppController.this, ProductView.class);
+                            editor = sharedPreferences.edit();
+                            editor.putInt(FRAGMENT_WINDOW_KEY, 1);
+                            editor.commit();
+                            startActivity(homeIntent);
                         } else {
                             Toast.makeText(
                                     getApplicationContext(),

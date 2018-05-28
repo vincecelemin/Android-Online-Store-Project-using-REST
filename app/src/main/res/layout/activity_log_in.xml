@@ -103,16 +103,4 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="18sp" />
     </LinearLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:id="@+id/shopCountText"
-        android:layout_marginTop="8dp"
-        android:layout_alignRight="@id/btnContainer"
-        android:textSize="14sp"
-        android:layout_below="@id/btnContainer"/>
-
 </RelativeLayout>

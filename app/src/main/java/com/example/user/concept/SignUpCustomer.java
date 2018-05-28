@@ -123,9 +123,6 @@ public class SignUpCustomer extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                Toast.makeText(getApplicationContext(),
-//                        response,
-//                        Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
 

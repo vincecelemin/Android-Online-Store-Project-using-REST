@@ -41,7 +41,7 @@ public class LogIn extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private static final String ACCOUNT_PREFERENCE = "accountPref";
-    private static final String PROFILE_NAME_KEY = "profile_name", USER_LOGGED_KEY = "userLogged", PROFILE_ID_KEY = "profile_id";
+    private static final String PROFILE_NAME_KEY = "profile_name", USER_LOGGED_KEY = "userLogged", PROFILE_ID_KEY = "profile_id", FRAGMENT_WINDOW_KEY = "fragment";
 
 
     @Override
@@ -85,6 +85,7 @@ public class LogIn extends AppCompatActivity {
 
                         editor.putString(PROFILE_NAME_KEY, account_data.getString("first_name") + " " + account_data.getString("last_name"));
                         editor.putInt(PROFILE_ID_KEY, Integer.parseInt(account_data.getString("profile_id")));
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 0);
 
                         if (rememberCheckBox.isChecked()) {
                             editor.putBoolean(USER_LOGGED_KEY, true);
@@ -144,6 +145,9 @@ public class LogIn extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
 
         if (sharedPreferences.contains(PROFILE_ID_KEY) && sharedPreferences.getBoolean(USER_LOGGED_KEY, false)) {
+            editor = sharedPreferences.edit();
+            editor.putInt(FRAGMENT_WINDOW_KEY, 0);
+            editor.commit();
             startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
         }
     }
@@ -155,6 +159,9 @@ public class LogIn extends AppCompatActivity {
         if (requestCode == 1) {
             switch (resultCode) {
                 case RESULT_OK:
+                    editor = sharedPreferences.edit();
+                    editor.putInt(FRAGMENT_WINDOW_KEY, 0);
+                    editor.commit();
                     startActivityForResult(new Intent(LogIn.this, ProductView.class), 2);
                     break;
             }

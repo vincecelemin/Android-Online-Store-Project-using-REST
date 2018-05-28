@@ -39,19 +39,56 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductView extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView navigation;
+    private int fragmentWindow, currentWindow;
 
-    private boolean logOut = false;
-
+    private SharedPreferences sharedPreferences;
+    private static final String ACCOUNT_PREFERENCE = "accountPref", USER_LOGGED_KEY = "userLogged";
+    private static final String FRAGMENT_WINDOW_KEY = "fragment";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_view);
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-        getSupportActionBar().setTitle("Shop");
+
+        sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
+
         loadFragment(new ShopFragment());
+        currentWindow = 0;
+
+//        if(sharedPreferences.contains(FRAGMENT_WINDOW_KEY)) {
+//            fragmentWindow = sharedPreferences.getInt(FRAGMENT_WINDOW_KEY, 0);
+//            loadFragmentFromKey();
+//        }
     }
+
+    private void loadFragmentFromKey() {
+        Fragment fragment = null;
+
+        switch (fragmentWindow) {
+            case 0:
+                navigation.setSelectedItemId(R.id.navigation_shop);
+                getSupportActionBar().setTitle("Shop");
+                fragment = new ShopFragment();
+                break;
+
+            case 1:
+                navigation.setSelectedItemId(R.id.navigation_cart);
+                getSupportActionBar().setTitle("Cart");
+                fragment = new CartFragment();
+                break;
+
+            case 2:
+                navigation.setSelectedItemId(R.id.navigation_account);
+                getSupportActionBar().setTitle("Account");
+                fragment = new AccountFragment();
+                break;
+        }
+
+        loadFragment(fragment);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
@@ -65,12 +102,21 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_CANCELED, getIntent());
-        finish();
+        if(sharedPreferences.contains(USER_LOGGED_KEY) && !sharedPreferences.getBoolean(USER_LOGGED_KEY, true)) {
+            setResult(RESULT_CANCELED, getIntent());
+            finish();
+        } else {
+            if(currentWindow == 0) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
     }
 
     private boolean loadFragment(Fragment fragment) {
-        if(fragment != null){
+        if (fragment != null) {
 
             getSupportFragmentManager()
                     .beginTransaction()
@@ -87,20 +133,24 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.navigation_shop:
                 getSupportActionBar().setTitle("Shop");
                 fragment = new ShopFragment();
+                currentWindow = 0;
                 break;
 
             case R.id.navigation_cart:
                 getSupportActionBar().setTitle("Cart");
                 fragment = new CartFragment();
+                currentWindow = 1;
                 break;
 
             case R.id.navigation_account:
                 getSupportActionBar().setTitle("Account");
                 fragment = new AccountFragment();
+
+                currentWindow = 2;
                 break;
         }
 

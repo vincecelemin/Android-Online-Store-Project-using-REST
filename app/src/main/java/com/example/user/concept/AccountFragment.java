@@ -41,6 +41,7 @@ public class AccountFragment extends Fragment {
 
     private Button accountEdit;
     private Button accountChangePassword;
+    private Button logOutBtn;
 
     private static final String TAG = ShopFragment.class.getSimpleName();
     private SharedPreferences sharedPreferences;
@@ -84,6 +85,14 @@ public class AccountFragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
+
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().setResult(RESULT_CANCELED, getActivity().getIntent());
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
@@ -100,8 +109,10 @@ public class AccountFragment extends Fragment {
                                 Toast.LENGTH_SHORT
                         ).show();
 
+                        Intent homeIntent = getActivity().getIntent();
+                        homeIntent.putExtra("fragment", '2');
                         getActivity().finish();
-                        startActivity(getActivity().getIntent());
+                        startActivity(homeIntent);
                     }
                     break;
             }
@@ -114,9 +125,6 @@ public class AccountFragment extends Fragment {
                                 "Your password has been updated",
                                 Toast.LENGTH_SHORT
                         ).show();
-
-                        getActivity().finish();
-                        startActivity(getActivity().getIntent());
                     }
                     break;
             }
@@ -130,6 +138,7 @@ public class AccountFragment extends Fragment {
 
         accountEdit = (Button) rootView.findViewById(R.id.accountBtnUpdateProfile);
         accountChangePassword = (Button) rootView.findViewById(R.id.accountBtnChangePassword);
+        logOutBtn = (Button) rootView.findViewById(R.id.logOutBtn);
         sharedPreferences = getActivity().getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
 
         getProfileInformation();
