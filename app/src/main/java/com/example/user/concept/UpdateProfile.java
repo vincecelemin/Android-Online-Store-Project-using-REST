@@ -1,7 +1,9 @@
 package com.example.user.concept;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -38,6 +40,10 @@ public class UpdateProfile extends AppCompatActivity {
 
     private Button cancelButton;
     private Button updateButton;
+    private static final String ACCOUNT_PREFERENCE = "accountPref";
+    private static final String PROFILE_NAME_KEY = "profile_name";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +98,11 @@ public class UpdateProfile extends AppCompatActivity {
                         } else {
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("status", "success");
+
+                            sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
+                            editor = sharedPreferences.edit();
+                            editor.putString(PROFILE_NAME_KEY, firstNameInput.getText().toString() + " " + lastNameInput.getText().toString());
+                            editor.commit();
                             setResult(Activity.RESULT_OK, returnIntent);
                             finish();
                         }

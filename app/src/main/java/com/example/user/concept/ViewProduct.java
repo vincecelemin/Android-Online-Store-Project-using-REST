@@ -105,6 +105,7 @@ public class ViewProduct extends AppCompatActivity {
                         ).show();
 
                         finish();
+                        startActivity(new Intent(ViewProduct.this, ProductView.class));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

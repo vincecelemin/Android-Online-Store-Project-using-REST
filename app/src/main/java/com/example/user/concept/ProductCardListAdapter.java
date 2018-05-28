@@ -37,11 +37,20 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
     public void onBindViewHolder(ProductCardListHolder holder, int position) {
         final ProductCardItem productCardItem = productCartItemList.get(position);
 
-        holder.productName.setText(productCardItem.getName());
+        if(productCardItem.getName().length() > 16) {
+            holder.productName.setText(productCardItem.getName().substring(0,16) + "..");
+        } else {
+            holder.productName.setText(productCardItem.getName());
+        }
+
+        if(productCardItem.getName().length() == 17) {
+            holder.productName.setText(productCardItem.getName());
+        }
         holder.productSeller.setText("by " + productCardItem.getSeller());
         holder.productPrice.setText("P " + String.valueOf(productCardItem.getPrice()));
         Picasso.get()
                 .load("http://10.0.2.2/WebFramFinalProj/public/storage/product_images/" + productCardItem.getImageName())
+                .resize(500, 500)
                 .into(holder.productLogo);
 
         holder.viewProductBtn.setOnClickListener(new View.OnClickListener() {

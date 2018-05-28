@@ -110,10 +110,12 @@ public class AccountFragment extends Fragment {
                                 "Your profile has been updated",
                                 Toast.LENGTH_SHORT
                         ).show();
-
                         editor = sharedPreferences.edit();
-                        editor.putInt(FRAGMENT_WINDOW_KEY, 0);
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 2);
                         editor.commit();
+
+                        getActivity().startActivity(getActivity().getIntent());
+                        getActivity().finish();
                     }
                     break;
             }

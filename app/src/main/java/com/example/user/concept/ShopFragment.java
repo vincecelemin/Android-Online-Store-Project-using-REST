@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,15 +32,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_CANCELED;
+
 public class ShopFragment extends Fragment {
 
     private static final String TAG = ShopFragment.class.getSimpleName();
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private static final String ACCOUNT_PREFERENCE = "accountPref";
-    private static final String PROFILE_ID_KEY = "profile_id";
+    private static final String PROFILE_ID_KEY = "profile_id", PROFILE_NAME_KEY = "profile_name", FRAGMENT_WINDOW_KEY = "fragment";
 
+    private TextView customerName;
     private ProductCardItem productCard;
     private RecyclerView productIndexRecyclerView;
+    private Button homeCartBtn;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,11 +59,65 @@ public class ShopFragment extends Fragment {
     private void initResources(View rootView) {
         sharedPreferences = getActivity().getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
         productIndexRecyclerView = (RecyclerView) rootView.findViewById(R.id.productRecyclerViewIndex);
+
+        customerName = (TextView) rootView.findViewById(R.id.customerNameShopView);
+        customerName.setText("Welcome, " + sharedPreferences.getString(PROFILE_NAME_KEY, ""));
+
+        homeCartBtn = (Button) rootView.findViewById(R.id.homeCartBtn);
+        getCartCount();
+        homeCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor = sharedPreferences.edit();
+                editor.putInt(FRAGMENT_WINDOW_KEY, 1);
+                editor.commit();
+
+                getActivity().startActivity(getActivity().getIntent());
+                getActivity().finish();
+            }
+        });
         setProductView();
     }
 
+    private void getCartCount() {
+        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.getCartCount), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, response.toString());
+                try {
+                    JSONObject responseObj = new JSONObject(response);
+                    if (responseObj.getString("status").equals("success")) {
+                        if(Integer.valueOf(responseObj.getString("count")) == 1) {
+                            homeCartBtn.setText(responseObj.getString("count") + " item");
+                        } else {
+                            homeCartBtn.setText(responseObj.getString("count") + " items");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("profile_id", String.valueOf(sharedPreferences.getInt(PROFILE_ID_KEY, 0)));
+                return parameters;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strRequest);
+    }
+
     private void setProductView() {
-        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.getProductViewIndexProducts), new Response.Listener<String>() {
+        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.getAllProducts), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, response.toString());
@@ -105,6 +167,4 @@ public class ShopFragment extends Fragment {
         };
         AppController.getInstance().addToRequestQueue(strRequest);
     }
-
-
 }
