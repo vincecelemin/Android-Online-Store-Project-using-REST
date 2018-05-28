@@ -45,8 +45,10 @@ public class AccountFragment extends Fragment {
 
     private static final String TAG = ShopFragment.class.getSimpleName();
     private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private static final String ACCOUNT_PREFERENCE = "accountPref";
     private static final String PROFILE_ID_KEY = "profile_id";
+    private static final String FRAGMENT_WINDOW_KEY = "fragment";
 
     private String first_name, last_name;
 
@@ -109,10 +111,9 @@ public class AccountFragment extends Fragment {
                                 Toast.LENGTH_SHORT
                         ).show();
 
-                        Intent homeIntent = getActivity().getIntent();
-                        homeIntent.putExtra("fragment", '2');
-                        getActivity().finish();
-                        startActivity(homeIntent);
+                        editor = sharedPreferences.edit();
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 0);
+                        editor.commit();
                     }
                     break;
             }

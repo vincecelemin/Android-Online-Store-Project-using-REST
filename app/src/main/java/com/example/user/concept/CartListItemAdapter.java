@@ -1,7 +1,9 @@
 package com.example.user.concept;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,11 +38,20 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
     private List<CartItem> cartItemList;
     private FragmentManager fragmentManager;
     private Context mCtx;
+    private Activity activity;
 
-    public CartListItemAdapter(List<CartItem> cartItemList, Context mCtx, FragmentManager fragmentManager) {
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private static final String ACCOUNT_PREFERENCE = "accountPref";
+    private static final String FRAGMENT_WINDOW_KEY = "fragment";
+
+    public CartListItemAdapter(List<CartItem> cartItemList, Context mCtx, FragmentManager fragmentManager, Activity activity) {
         this.cartItemList = cartItemList;
         this.mCtx = mCtx;
         this.fragmentManager = fragmentManager;
+        this.activity = activity;
+
+        sharedPreferences = mCtx.getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -76,7 +87,7 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
 
     private void openEditQuantityDialog(String productQuantity, int cartProductId, int cartId) {
         UpdateCartItemQuantityDialog updateDialog = new UpdateCartItemQuantityDialog();
-        updateDialog.setData(cartProductId, productQuantity, cartId);
+        updateDialog.setData(cartProductId, productQuantity, cartId, activity);
         updateDialog.show(fragmentManager, "update quantity");
     }
 
@@ -93,6 +104,13 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
                                 cartItem.getCartProductName() + " has been removed from your cart",
                                 Toast.LENGTH_LONG
                         ).show();
+
+                        editor = sharedPreferences.edit();
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 1);
+                        editor.commit();
+
+                        activity.startActivity(activity.getIntent());
+                        activity.finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

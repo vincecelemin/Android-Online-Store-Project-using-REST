@@ -88,6 +88,10 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
         }
 
         loadFragment(fragment);
+        if(fragmentWindow == 2 || fragmentWindow == 3) {
+            finish();
+            startActivity(getIntent());
+        }
     }
 
     @Override

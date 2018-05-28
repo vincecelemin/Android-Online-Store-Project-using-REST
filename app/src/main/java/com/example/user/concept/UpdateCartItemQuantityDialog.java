@@ -1,5 +1,6 @@
 package com.example.user.concept;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,14 +36,16 @@ public class UpdateCartItemQuantityDialog extends AppCompatDialogFragment {
     private String currentQuantity;
     private TextView availableQuantity;
     private EditText currentQuantityInput;
+    private Activity activity;
 
     private UpdateCartDialogListener listener;
 
 
-    public void setData(int productId, String currentQuantity, int cartId) {
+    public void setData(int productId, String currentQuantity, int cartId, Activity activity) {
         this.productId = productId;
         this.cartId = cartId;
         this.currentQuantity = currentQuantity;
+        this.activity = activity;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class UpdateCartItemQuantityDialog extends AppCompatDialogFragment {
             isEmptied = true;
         }
 
-        listener.applyTexts(quantityInput, isEmptied, cartId);
+        listener.applyTexts(quantityInput, isEmptied, cartId, activity);
     }
 
     @Override
@@ -162,6 +165,6 @@ public class UpdateCartItemQuantityDialog extends AppCompatDialogFragment {
     }
 
     public interface UpdateCartDialogListener {
-        void applyTexts(String newQuantity, boolean isEmptied, int cartId);
+        void applyTexts(String newQuantity, boolean isEmptied, int cartId, Activity activity);
     }
 }

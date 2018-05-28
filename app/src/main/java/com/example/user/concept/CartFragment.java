@@ -94,7 +94,7 @@ public class CartFragment extends Fragment {
                         cartRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
                         CartListItemAdapter cartListItemAdapter = new CartListItemAdapter(cartItemArrayList,
-                                getActivity().getApplicationContext(), getActivity().getSupportFragmentManager());
+                                getActivity().getApplicationContext(), getActivity().getSupportFragmentManager(), getActivity());
                         cartRecyclerView.setAdapter(cartListItemAdapter);
                     }
                 } catch (JSONException e) {
