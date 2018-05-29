@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,7 +42,7 @@ public class ViewProduct extends AppCompatActivity {
     private TextView productDescription;
     private TextView productPrice;
     private TextView productQuantity;
-
+    private RecyclerView productImageRecyclerView;
     private EditText inputQuantity;
 
     private Button addToWishlistBtn;
@@ -151,6 +155,7 @@ public class ViewProduct extends AppCompatActivity {
         addToCartBtn = (Button) findViewById(R.id.addToCartBtn);
         addToWishlistBtn = (Button) findViewById(R.id.addToWishlistBtn);
 
+        productImageRecyclerView = (RecyclerView) findViewById(R.id.productImageRecyclerView);
         sharedPreferences = getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
 
         setProductInformation();
@@ -174,6 +179,21 @@ public class ViewProduct extends AppCompatActivity {
                         productQuantity.setText(productData.getString("stock") + " available");
 
                         productStock = productData.getInt("stock");
+
+                        JSONArray productImages = new JSONArray(responseObj.getString("product_images"));
+                        List<String> productImageAddresses = new ArrayList<>();
+                        for(int i = 0; i < productImages.length(); i++) {
+                            JSONObject productImage = new JSONObject(productImages.get(i).toString());
+                            productImageAddresses.add(productImage.getString("image_location"));
+                        }
+
+
+                        productImageRecyclerView.setHasFixedSize(true);
+                        productImageRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                        SnapHelper helper = new LinearSnapHelper();
+                        helper.attachToRecyclerView(productImageRecyclerView);
+                        productImageRecyclerView.
+                                setAdapter(new ProductImageListAdapter(getApplicationContext(), productImageAddresses));
                     } else {
                         Toast.makeText(
                                 getApplicationContext(),
