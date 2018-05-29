@@ -24,4 +24,5 @@
     <string name="deleteFromCart">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/deleteFromCart.php</string>
     <string name="updateCartQuantity">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/updateCartQuantity.php</string>
     <string name="getCartCount">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getCartCount.php</string>
+    <string name="productImageBaseURL">http://10.0.2.2/WebFramFinalProj/public/storage/product_images/</string>
 </resources>

@@ -35,7 +35,6 @@
                     android:id="@+id/cardProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:text="Product Name"
                     android:textColor="#000"
                     android:textSize="20sp"
@@ -62,7 +61,17 @@
                         android:gravity="right"
                         android:text="Product Price"
                         android:textColor="#333"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/cardProductStock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="Product Stock"
+                        android:textColor="#333"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout

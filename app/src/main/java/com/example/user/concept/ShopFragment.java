@@ -136,6 +136,7 @@ public class ShopFragment extends Fragment {
                             productCard.setImageName(productItem.getString("image_location"));
                             productCard.setPrice(productItem.getDouble("price"));
                             productCard.setProductId(productItem.getInt("id"));
+                            productCard.setStock(productItem.getInt("stock"));
                             productCardList.add(productCard);
                         }
 

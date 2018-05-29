@@ -87,7 +87,7 @@ class CartListItemAdapter extends RecyclerView.Adapter<CartListItemAdapter.CartI
         });
 
         Picasso.get()
-                .load("http://10.0.2.2/WebFramFinalProj/public/storage/product_images/" + cartItem.getCartImageLocation())
+                .load(mCtx.getString(R.string.productImageBaseURL) + cartItem.getCartImageLocation())
                 .resize(100, 100)
                 .into(holder.cartProductImage);
     }

@@ -33,7 +33,7 @@ public class ProductImageListAdapter extends RecyclerView.Adapter<ProductImageLi
 
         Picasso
             .get()
-            .load("http://10.0.2.2/WebFramFinalProj/public/storage/product_images/" + imageAddress)
+            .load(mContext.getString(R.string.productImageBaseURL) + imageAddress)
             .into(holder.productImage);
     }
 

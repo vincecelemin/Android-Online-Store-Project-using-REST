@@ -48,8 +48,15 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
         }
         holder.productSeller.setText("by " + productCardItem.getSeller());
         holder.productPrice.setText("P " + String.valueOf(productCardItem.getPrice()));
+
+        if(productCardItem.getStock() > 0) {
+            holder.productStock.setText(String.valueOf(productCardItem.getStock()) + " available");
+        } else {
+            holder.productStock.setText("out of stock");
+        }
+
         Picasso.get()
-                .load("http://10.0.2.2/WebFramFinalProj/public/storage/product_images/" + productCardItem.getImageName())
+                .load(mCtx.getString(R.string.productImageBaseURL) + productCardItem.getImageName())
                 .resize(500, 500)
                 .into(holder.productLogo);
 
@@ -70,7 +77,7 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
 
     public class ProductCardListHolder extends RecyclerView.ViewHolder {
         ImageView productLogo;
-        TextView productName, productSeller, productPrice;
+        TextView productName, productSeller, productPrice, productStock;
         Button addToCartBtn, viewProductBtn;
 
         public ProductCardListHolder(View itemView) {
@@ -80,6 +87,7 @@ public class ProductCardListAdapter extends RecyclerView.Adapter<ProductCardList
             productName = (TextView) itemView.findViewById(R.id.cardProductName);
             productSeller = (TextView) itemView.findViewById(R.id.cardProductSeller);
             productPrice = (TextView) itemView.findViewById(R.id.cardProductPrice);
+            productStock = (TextView) itemView.findViewById(R.id.cardProductStock);
 
             // Buttons
             viewProductBtn = (Button) itemView.findViewById(R.id.cardViewProductBtn);

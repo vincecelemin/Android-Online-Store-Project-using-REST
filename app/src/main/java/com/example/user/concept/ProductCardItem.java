@@ -6,6 +6,15 @@ public class ProductCardItem {
     private String imageName;
     private int productId;
     private double price;
+    private int stock;
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
     public String getName() {
         return name;
