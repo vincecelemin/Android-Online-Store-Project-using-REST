@@ -106,6 +106,12 @@ public class ViewProduct extends AppCompatActivity {
 
                         finish();
                         startActivity(new Intent(ViewProduct.this, ProductView.class));
+                    } else {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                responseObj.getString("message"),
+                                Toast.LENGTH_LONG
+                        ).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
