@@ -38,10 +38,12 @@ public class AccountFragment extends Fragment {
     private TextView customerName;
     private TextView customerEmail;
     private TextView customerAddress;
+    private TextView currentBalance;
 
     private Button accountEdit;
     private Button accountChangePassword;
     private Button logOutBtn;
+    private Button topUpBtn;
 
     private static final String TAG = ShopFragment.class.getSimpleName();
     private SharedPreferences sharedPreferences;
@@ -59,6 +61,23 @@ public class AccountFragment extends Fragment {
         initResources(rootView);
         initEvents();
         return rootView;
+    }
+
+
+    private void initResources(View rootView) {
+        customerName = (TextView) rootView.findViewById(R.id.accountCustomerName);
+        customerEmail = (TextView) rootView.findViewById(R.id.accountCustomerEmail);
+        customerAddress = (TextView) rootView.findViewById(R.id.accountCustomerAddress);
+        currentBalance = (TextView) rootView.findViewById(R.id.currentBalance);
+
+        accountEdit = (Button) rootView.findViewById(R.id.accountBtnUpdateProfile);
+        accountChangePassword = (Button) rootView.findViewById(R.id.accountBtnChangePassword);
+        logOutBtn = (Button) rootView.findViewById(R.id.logOutBtn);
+        topUpBtn = (Button) rootView.findViewById(R.id.topUpAccountBtn);
+        sharedPreferences = getActivity().getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
+
+        getProfileInformation();
+        setCurrentBalance();
     }
 
     private void initEvents() {
@@ -95,57 +114,52 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
             }
         });
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        topUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent topUpIntent = new Intent(getActivity(), TopUp.class);
 
-        if(requestCode == 0) {
-            switch(resultCode) {
-                case RESULT_OK:
-                    if(data.getStringExtra("status").equals("success")) {
-                        Toast.makeText(
-                                getActivity().getApplicationContext(),
-                                "Your profile has been updated",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                        editor = sharedPreferences.edit();
-                        editor.putInt(FRAGMENT_WINDOW_KEY, 2);
-                        editor.commit();
-
-                        getActivity().startActivity(getActivity().getIntent());
-                        getActivity().finish();
-                    }
-                    break;
+                topUpIntent.putExtra("email", customerEmail.getText().toString());
+                topUpIntent.putExtra("profile_id", sharedPreferences.getInt(PROFILE_ID_KEY, 0));
+                startActivityForResult(topUpIntent, 2);
             }
-        } else if (requestCode == 1) {
-            switch(resultCode) {
-                case RESULT_OK:
-                    if(data.getStringExtra("status").equals("success")) {
-                        Toast.makeText(
-                                getActivity().getApplicationContext(),
-                                "Your password has been updated",
-                                Toast.LENGTH_SHORT
-                        ).show();
+        });
+    }
+
+    private void setCurrentBalance() {
+        StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.getCurrentBalance), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, response.toString());
+                try {
+                    JSONObject responseObj = new JSONObject(response);
+                    if (responseObj.getString("status").equals("success")) {
+                        currentBalance.setText("P " + responseObj.getString("balance"));
                     }
-                    break;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getActivity().getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parameters = new HashMap<String, String>();
+                parameters.put("profile_id", String.valueOf(sharedPreferences.getInt(PROFILE_ID_KEY, 0)));
+                return parameters;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strRequest);
     }
 
-    private void initResources(View rootView) {
-        customerName = (TextView) rootView.findViewById(R.id.accountCustomerName);
-        customerEmail = (TextView) rootView.findViewById(R.id.accountCustomerEmail);
-        customerAddress = (TextView) rootView.findViewById(R.id.accountCustomerAddress);
-
-        accountEdit = (Button) rootView.findViewById(R.id.accountBtnUpdateProfile);
-        accountChangePassword = (Button) rootView.findViewById(R.id.accountBtnChangePassword);
-        logOutBtn = (Button) rootView.findViewById(R.id.logOutBtn);
-        sharedPreferences = getActivity().getSharedPreferences(ACCOUNT_PREFERENCE, Context.MODE_PRIVATE);
-
-        getProfileInformation();
-    }
 
     private void getProfileInformation() {
         StringRequest strRequest = new StringRequest(Request.Method.POST, getString(R.string.getProfileInformation), new Response.Listener<String>() {
@@ -185,5 +199,66 @@ public class AccountFragment extends Fragment {
             }
         };
         AppController.getInstance().addToRequestQueue(strRequest);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0) {
+            switch (resultCode) {
+                case RESULT_OK:
+                    if (data.getStringExtra("status").equals("success")) {
+                        Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                "Your profile has been updated",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        editor = sharedPreferences.edit();
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 2);
+                        editor.commit();
+
+                        getActivity().startActivity(getActivity().getIntent());
+                        getActivity().finish();
+                    }
+                    break;
+            }
+        } else if (requestCode == 1) {
+            switch (resultCode) {
+                case RESULT_OK:
+                    if (data.getStringExtra("status").equals("success")) {
+                        Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                "Your password has been updated",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        editor = sharedPreferences.edit();
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 2);
+                        editor.commit();
+
+                        getActivity().startActivity(getActivity().getIntent());
+                        getActivity().finish();
+                    }
+                    break;
+            }
+        } else if (requestCode == 2) {
+            switch (resultCode) {
+                case RESULT_OK:
+                    if (data.getStringExtra("status").equals("success")) {
+                        Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                "Your load has been updated",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        editor = sharedPreferences.edit();
+                        editor.putInt(FRAGMENT_WINDOW_KEY, 2);
+                        editor.commit();
+
+                        getActivity().startActivity(getActivity().getIntent());
+                        getActivity().finish();
+                    }
+                    break;
+            }
+        }
     }
 }

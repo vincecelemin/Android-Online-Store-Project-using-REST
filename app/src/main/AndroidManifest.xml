@@ -32,7 +32,9 @@
         <activity
             android:name=".ChangePassword"
             android:theme="@style/AppThemeNav" />
-        <activity android:name=".ViewProduct"></activity>
+        <activity android:name=".ViewProduct" />
+        <activity android:name=".TopUp"
+            android:theme="@style/AppThemeNav"/>
     </application>
 
 </manifest>

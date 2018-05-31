@@ -38,8 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginVertical="8dp">
 
             <Button
                 android:id="@+id/accountBtnUpdateProfile"
@@ -65,11 +64,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/topUpAccountBtn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginRight="8dp"
-                android:layout_weight="1"></LinearLayout>
+                android:layout_weight="1"
+                android:background="@drawable/button_shape"
+                android:text="top up"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
 
             <Button
                 android:id="@+id/logOutBtn"
@@ -79,6 +82,25 @@
                 android:background="@drawable/button_shape"
                 android:text="log out"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="current balance: "
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_marginRight="4dp"
+                android:id="@+id/currentBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#000"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
