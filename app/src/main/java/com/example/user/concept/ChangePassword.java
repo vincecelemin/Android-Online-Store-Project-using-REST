@@ -63,7 +63,7 @@ public class ChangePassword extends AppCompatActivity {
         updatePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(newPasswordInput.getText().toString().equals(confirmPasswordInput.getText().toString())){
+                if (newPasswordInput.getText().toString().equals(confirmPasswordInput.getText().toString())) {
                     updatePassword();
                 } else {
                     Toast.makeText(
@@ -85,14 +85,12 @@ public class ChangePassword extends AppCompatActivity {
                 Log.d(TAG, response.toString());
                 try {
                     JSONObject responseObj = new JSONObject(response);
-                    if(responseObj.get("status").equals("success")) {
-                        if(newPasswordInput.getText().toString().equals(oldPasswordInput.getText().toString())){
-                            setResult(RESULT_CANCELED, getIntent());
-                            finish();
-                        } else {
-                            setResult(RESULT_OK, getIntent());
-                            finish();
-                        }
+
+                    if (responseObj.get("status").equals("success")) {
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("status", "success");
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
                     } else {
                         Toast.makeText(
                                 getApplicationContext(),
@@ -127,6 +125,7 @@ public class ChangePassword extends AppCompatActivity {
     }
 
     private void initResources() {
+        getSupportActionBar().setTitle("Update your password");
         oldPasswordInput = (EditText) findViewById(R.id.accountOldPasswordInput);
         newPasswordInput = (EditText) findViewById(R.id.accountNewPasswordInput);
         confirmPasswordInput = (EditText) findViewById(R.id.accountConfirmPasswordInput);

@@ -233,10 +233,10 @@ public class AccountFragment extends Fragment {
                                 Toast.LENGTH_SHORT
                         ).show();
                         editor = sharedPreferences.edit();
-                        editor.putInt(FRAGMENT_WINDOW_KEY, 2);
+                        editor.clear();
                         editor.commit();
 
-                        getActivity().startActivity(getActivity().getIntent());
+                        getActivity().setResult(RESULT_CANCELED, getActivity().getIntent());
                         getActivity().finish();
                     }
                     break;
