@@ -38,6 +38,8 @@ public class SignUpCustomer extends AppCompatActivity {
     private EditText passwordInput;
     private EditText confirmPasswordInput;
     private EditText addressInput;
+    private EditText contactNumberInput;
+
     private char gender;
 
     private static final String TAG = SignUpCustomer.class.getSimpleName();
@@ -139,6 +141,7 @@ public class SignUpCustomer extends AppCompatActivity {
                 parameters.put("first_name", firstNameInput.getText().toString().trim());
                 parameters.put("last_name", lastNameInput.getText().toString().trim());
                 parameters.put("address", addressInput.getText().toString().trim());
+                parameters.put("contact_number", contactNumberInput.getText().toString().trim());
                 parameters.put("gender", String.valueOf(gender));
                 parameters.put("email", emailInput.getText().toString().trim());
                 parameters.put("password", passwordInput.getText().toString().trim());
@@ -158,6 +161,7 @@ public class SignUpCustomer extends AppCompatActivity {
         passwordInput = (EditText) findViewById(R.id.passwordInput);
         confirmPasswordInput = (EditText) findViewById(R.id.confirmPasswordInput);
         addressInput = (EditText) findViewById(R.id.addressInput);
+        contactNumberInput = (EditText) findViewById(R.id.contactNumberInput);
         gender = 'M';
 
         getSupportActionBar().setTitle("Sign Up to Concept");

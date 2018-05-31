@@ -36,6 +36,7 @@ public class UpdateProfile extends AppCompatActivity {
     private EditText lastNameInput;
     private EditText emailAddressInput;
     private EditText addressInput;
+    private EditText contactNumberInput;
     private EditText passwordInput;
 
     private Button cancelButton;
@@ -92,7 +93,8 @@ public class UpdateProfile extends AppCompatActivity {
                         if(firstNameInput.getText().toString().equals(getIntent().getStringExtra("first_name")) &&
                                 lastNameInput.getText().toString().equals(getIntent().getStringExtra("last_name")) &&
                                 addressInput.getText().toString().equals(getIntent().getStringExtra("address")) &&
-                                emailAddressInput.getText().toString().equals(getIntent().getStringExtra("email"))) {
+                                emailAddressInput.getText().toString().equals(getIntent().getStringExtra("email")) &&
+                                contactNumberInput.getText().toString().equals(getIntent().getStringExtra("contact_number"))) {
                             setResult(RESULT_CANCELED, getIntent());
                             finish();
                         } else {
@@ -133,6 +135,7 @@ public class UpdateProfile extends AppCompatActivity {
                 parameters.put("last_name", lastNameInput.getText().toString());
                 parameters.put("email", emailAddressInput.getText().toString());
                 parameters.put("address", addressInput.getText().toString());
+                parameters.put("contact_number", contactNumberInput.getText().toString());
                 parameters.put("password", passwordInput.getText().toString());
 
                 parameters.put("profile_id", String.valueOf(getIntent().getIntExtra("profile_id", 0)));
@@ -149,6 +152,7 @@ public class UpdateProfile extends AppCompatActivity {
         lastNameInput = (EditText) findViewById(R.id.accountLastNameInput);
         emailAddressInput = (EditText) findViewById(R.id.accountEmailInput);
         addressInput = (EditText) findViewById(R.id.accountAddressInput);
+        contactNumberInput = (EditText) findViewById(R.id.contactNumberInput);
         passwordInput = (EditText) findViewById(R.id.accountPasswordInput);
 
         cancelButton = (Button) findViewById(R.id.updateProfileCancelBtn);

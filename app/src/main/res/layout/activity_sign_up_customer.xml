@@ -49,11 +49,24 @@
             android:layout_marginBottom="8dp"
             android:layout_below="@id/lastNameInput"/>
 
+        <EditText
+            android:id="@+id/contactNumberInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:hint="contact number"
+            android:inputType="phone"
+            android:padding="8dp"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/addressInput"/>
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/genderRadio"
-            android:layout_below="@+id/addressInput"
+            android:layout_below="@+id/contactNumberInput"
             android:layout_marginBottom="8dp"
             android:padding="8dp"
             android:background="#000"

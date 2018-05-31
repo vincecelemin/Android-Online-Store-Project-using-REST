@@ -35,18 +35,27 @@
             android:textColor="#000"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/accountCustomerContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="16sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp">
+            android:layout_marginVertical="4dp">
 
             <Button
                 android:id="@+id/accountBtnUpdateProfile"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_shape"
+                android:background="#000"
+                android:textColor="#fff"
                 android:text="update profile"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
@@ -55,7 +64,8 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_shape"
+                android:background="#000"
+                android:textColor="#fff"
                 android:text="change password"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
         </LinearLayout>
@@ -68,9 +78,10 @@
                 android:id="@+id/topUpAccountBtn"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_shape"
+                android:background="#000"
+                android:textColor="#fff"
                 android:text="top up"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
@@ -79,7 +90,8 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:background="@drawable/button_shape"
+                android:background="#000"
+                android:textColor="#fff"
                 android:text="log out"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
         </LinearLayout>

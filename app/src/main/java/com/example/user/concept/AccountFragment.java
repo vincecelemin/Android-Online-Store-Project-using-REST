@@ -42,6 +42,7 @@ public class AccountFragment extends Fragment {
     private TextView customerEmail;
     private TextView customerAddress;
     private TextView currentBalance;
+    private TextView customerContact;
 
     private Button accountEdit;
     private Button accountChangePassword;
@@ -73,6 +74,7 @@ public class AccountFragment extends Fragment {
         customerName = (TextView) rootView.findViewById(R.id.accountCustomerName);
         customerEmail = (TextView) rootView.findViewById(R.id.accountCustomerEmail);
         customerAddress = (TextView) rootView.findViewById(R.id.accountCustomerAddress);
+        customerContact = (TextView) rootView.findViewById(R.id.accountCustomerContact);
         currentBalance = (TextView) rootView.findViewById(R.id.currentBalance);
 
         functionsListView = (ListView) rootView.findViewById(R.id.functionsListView);
@@ -103,6 +105,7 @@ public class AccountFragment extends Fragment {
                 intent.putExtra("last_name", last_name);
                 intent.putExtra("email", customerEmail.getText().toString());
                 intent.putExtra("address", customerAddress.getText().toString());
+                intent.putExtra("contact_number", customerContact.getText().toString());
                 intent.putExtra("profile_id", sharedPreferences.getInt(PROFILE_ID_KEY, 0));
 
                 startActivityForResult(intent, 0);
@@ -123,6 +126,10 @@ public class AccountFragment extends Fragment {
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+
                 getActivity().setResult(RESULT_CANCELED, getActivity().getIntent());
                 getActivity().finish();
             }
@@ -190,6 +197,7 @@ public class AccountFragment extends Fragment {
                         customerName.setText(first_name + " " + last_name);
                         customerEmail.setText(profileData.getString("email"));
                         customerAddress.setText(profileData.getString("address"));
+                        customerContact.setText(profileData.getString("contact_number"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
