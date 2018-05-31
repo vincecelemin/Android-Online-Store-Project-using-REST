@@ -12,6 +12,13 @@
     <string name="title_cart_tab">Cart</string>
     <string name="title_user_tab">Account</string>
 
+    <string-array name="functions">
+        <item>Notifications</item>
+        <item>Orders</item>
+        <item>Incoming Items</item>
+        <item>Top up Transactions</item>
+    </string-array>
+
     <string name="registerCustomerAccountURL">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/registerCustomerAccount.php</string>
     <string name="authenticateCustomerURL">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/authenticateCustomer.php</string>
     <string name="getAllProducts">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getAllProducts.php</string>

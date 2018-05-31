@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +47,8 @@ public class AccountFragment extends Fragment {
     private Button accountChangePassword;
     private Button logOutBtn;
     private Button topUpBtn;
+
+    private ListView functionsListView;
 
     private static final String TAG = ShopFragment.class.getSimpleName();
     private SharedPreferences sharedPreferences;
@@ -69,6 +74,14 @@ public class AccountFragment extends Fragment {
         customerEmail = (TextView) rootView.findViewById(R.id.accountCustomerEmail);
         customerAddress = (TextView) rootView.findViewById(R.id.accountCustomerAddress);
         currentBalance = (TextView) rootView.findViewById(R.id.currentBalance);
+
+        functionsListView = (ListView) rootView.findViewById(R.id.functionsListView);
+        functionsListView.setAdapter(new ArrayAdapter<String>(
+                getActivity().getApplicationContext(),
+                R.layout.list_black_text,
+                R.id.list_content,
+                Arrays.asList(getResources().getStringArray(R.array.functions))
+        ));
 
         accountEdit = (Button) rootView.findViewById(R.id.accountBtnUpdateProfile);
         accountChangePassword = (Button) rootView.findViewById(R.id.accountBtnChangePassword);
