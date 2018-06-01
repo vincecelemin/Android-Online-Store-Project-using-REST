@@ -1,12 +1,15 @@
 package com.example.user.concept;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -16,10 +19,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     private List<Order> orderList;
     private Context mCtx;
+    private FragmentManager fragmentManager;
 
-    public OrderListAdapter(List<Order> orderList, Context mCtx) {
+    public OrderListAdapter(List<Order> orderList, Context mCtx, FragmentManager fragmentManager) {
         this.orderList = orderList;
         this.mCtx = mCtx;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -30,29 +35,36 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     }
 
     @Override
-    public void onBindViewHolder(OrderListAdapter.OrderViewHolder holder, int position) {
-        Order order = orderList.get(position);
+    public void onBindViewHolder(OrderListAdapter.OrderViewHolder holder, final int position) {
+        final Order order = orderList.get(position);
+
+        holder.self.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mCtx, "Clicked " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         holder.productName.setText(order.getProductName());
         holder.productSeller.setText("fulfilled by " + order.getSellerName());
         holder.productPrice.setText(String.format("%d piece/s | P %.2f", order.getQuantity(), order.getPrice()));
-        holder.productOrderDate.setText("ordered on " + order.getAddedDate());
-
-        switch (order.getStatus()) {
-            case 0:
-                holder.productStatus.setText("status: on transit (ETA " + order.getArrivalDate().substring(0, 10) + ")");
-                break;
-            case 1:
-                holder.productStatus.setText("status: delivered");
-                break;
-            case 2:
-                holder.productStatus.setText("status: cancelled");
-                break;
-        }
 
         Picasso.get()
                 .load(mCtx.getString(R.string.productImageBaseURL) + order.getImageLoc())
                 .into(holder.productImage);
+
+        holder.orderDetailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openOrderDetailsDialog(order);
+            }
+        });
+    }
+
+    private void openOrderDetailsDialog(Order order) {
+        OrderDetailsDialog orderDetailsDialog = new OrderDetailsDialog();
+        orderDetailsDialog.setOrder(order);
+        orderDetailsDialog.show(fragmentManager, "view details");
     }
 
     @Override
@@ -61,17 +73,20 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productSeller, productPrice, productStatus, productOrderDate;
+        TextView productName, productSeller, productPrice;
+        Button orderDetailsBtn;
+        View self;
         ImageView productImage;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
 
+            self = itemView;
             productName = (TextView) itemView.findViewById(R.id.orderProductName);
             productSeller = (TextView) itemView.findViewById(R.id.orderProductSeller);
             productPrice = (TextView) itemView.findViewById(R.id.orderProductPrice);
-            productStatus = (TextView) itemView.findViewById(R.id.orderProductStatus);
-            productOrderDate = (TextView) itemView.findViewById(R.id.orderDate);
+
+            orderDetailsBtn = (Button) itemView.findViewById(R.id.orderDetailsBtn);
 
             productImage = (ImageView) itemView.findViewById(R.id.orderImage);
         }

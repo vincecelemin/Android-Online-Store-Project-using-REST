@@ -78,6 +78,9 @@ public class Orders extends AppCompatActivity {
                             order.setStatus(orderObject.getInt("status"));
                             order.setAddedDate(orderObject.getString("added"));
                             order.setArrivalDate(orderObject.getString("arrival_date"));
+                            order.setContactPerson(orderObject.getString("contact_person"));
+                            order.setDeliveryAddress(orderObject.getString("location"));
+                            order.setContactNumber(orderObject.getString("contact_number"));
 
                             orderList.add(order);
                         }
@@ -86,7 +89,7 @@ public class Orders extends AppCompatActivity {
                             noRecordView.setVisibility(View.VISIBLE);
                         } else {
                             ordersRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                            OrderListAdapter orderListAdapter = new OrderListAdapter(orderList, getApplicationContext());
+                            OrderListAdapter orderListAdapter = new OrderListAdapter(orderList, getApplicationContext(), getSupportFragmentManager());
                             ordersRecyclerView.setAdapter(orderListAdapter);
                         }
                     }

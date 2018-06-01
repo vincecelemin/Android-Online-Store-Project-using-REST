@@ -42,19 +42,16 @@
             android:text="Quantity | Price"
             android:textColor="#000" />
 
-        <TextView
-            android:id="@+id/orderDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ordered on" />
-
-        <TextView
-            android:id="@+id/orderProductStatus"
+        <Button
+            android:id="@+id/orderDetailsBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="right"
-            android:layout_marginTop="4dp"
-            android:text="Delivery Status"
-            android:textColor="#000" />
+            android:background="#000"
+            android:drawableLeft="@drawable/sharp_remove_red_eye_white_24"
+            android:paddingLeft="8dp"
+            android:text="details"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="#fff" />
     </LinearLayout>
 </LinearLayout>
