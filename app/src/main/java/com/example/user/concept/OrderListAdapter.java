@@ -36,10 +36,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         holder.productName.setText(order.getProductName());
         holder.productSeller.setText("fulfilled by " + order.getSellerName());
         holder.productPrice.setText(String.format("%d piece/s | P %.2f", order.getQuantity(), order.getPrice()));
+        holder.productOrderDate.setText("ordered on " + order.getAddedDate());
 
-        switch(order.getStatus()) {
+        switch (order.getStatus()) {
             case 0:
-                holder.productStatus.setText("status: on transit");
+                holder.productStatus.setText("status: on transit (ETA " + order.getArrivalDate().substring(0, 10) + ")");
                 break;
             case 1:
                 holder.productStatus.setText("status: delivered");
@@ -60,7 +61,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productSeller, productPrice, productStatus;
+        TextView productName, productSeller, productPrice, productStatus, productOrderDate;
         ImageView productImage;
 
         public OrderViewHolder(View itemView) {
@@ -70,6 +71,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             productSeller = (TextView) itemView.findViewById(R.id.orderProductSeller);
             productPrice = (TextView) itemView.findViewById(R.id.orderProductPrice);
             productStatus = (TextView) itemView.findViewById(R.id.orderProductStatus);
+            productOrderDate = (TextView) itemView.findViewById(R.id.orderDate);
 
             productImage = (ImageView) itemView.findViewById(R.id.orderImage);
         }
