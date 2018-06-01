@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -111,7 +112,9 @@ public class Orders extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parameters = new HashMap<String, String>();
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 parameters.put("profile_id", String.valueOf(sharedPreferences.getInt(PROFILE_ID_KEY, 0)));
+                parameters.put("current_timestamp", timestamp.toString());
                 return parameters;
             }
         };
