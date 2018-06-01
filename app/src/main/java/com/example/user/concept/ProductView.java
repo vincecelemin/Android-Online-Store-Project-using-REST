@@ -103,7 +103,7 @@ public class ProductView extends AppCompatActivity implements BottomNavigationVi
 
     @Override
     public void onBackPressed() {
-        if(sharedPreferences.contains(USER_LOGGED_KEY) && !sharedPreferences.getBoolean(USER_LOGGED_KEY, true)) {
+        if(!sharedPreferences.contains(USER_LOGGED_KEY)) {
             setResult(RESULT_CANCELED, getIntent());
             finish();
         } else {
