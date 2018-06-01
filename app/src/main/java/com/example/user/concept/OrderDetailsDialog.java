@@ -54,6 +54,13 @@ public class OrderDetailsDialog extends AppCompatDialogFragment {
         contactNumber.setText(order.getContactNumber());
         deliveryAddress.setText(order.getDeliveryAddress());
         orderDate.setText("Ordered on: " + order.getAddedDate());
-        arrivalDate.setText("Estimated Arrival: " + order.getArrivalDate().substring(0, 10));
+
+        if(order.getStatus() == 0) {
+            arrivalDate.setText("Estimated Arrival: " + order.getArrivalDate().substring(0, 10));
+        } else if (order.getStatus() == 1) {
+            arrivalDate.setText("Delivered: " + order.getArrivalDate());
+        } else if (order.getStatus() == 2) {
+            arrivalDate.setVisibility(View.GONE);
+        }
     }
 }

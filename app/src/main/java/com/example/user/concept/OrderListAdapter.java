@@ -49,6 +49,20 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
         holder.productSeller.setText("fulfilled by " + order.getSellerName());
         holder.productPrice.setText(String.format("%d piece/s | P %.2f", order.getQuantity(), order.getPrice()));
 
+        switch(order.getStatus()) {
+            case 0:
+                holder.orderStatus.setText("status: on transit");
+                break;
+
+            case 1:
+                holder.orderStatus.setText("status: delivered");
+                break;
+
+            case 2:
+                holder.orderStatus.setText("status: cancelled");
+                break;
+        }
+
         Picasso.get()
                 .load(mCtx.getString(R.string.productImageBaseURL) + order.getImageLoc())
                 .into(holder.productImage);
@@ -73,7 +87,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productSeller, productPrice;
+        TextView productName, productSeller, productPrice, orderStatus;
         Button orderDetailsBtn;
         View self;
         ImageView productImage;
@@ -85,6 +99,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             productName = (TextView) itemView.findViewById(R.id.orderProductName);
             productSeller = (TextView) itemView.findViewById(R.id.orderProductSeller);
             productPrice = (TextView) itemView.findViewById(R.id.orderProductPrice);
+            orderStatus = (TextView) itemView.findViewById(R.id.orderStatus);
 
             orderDetailsBtn = (Button) itemView.findViewById(R.id.orderDetailsBtn);
 
