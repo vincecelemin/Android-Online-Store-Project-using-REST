@@ -1,6 +1,10 @@
 package com.example.user.concept;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,10 +59,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 break;
 
             case 1:
+                holder.cancelOrderBtn.setVisibility(View.GONE);
                 holder.orderStatus.setText("status: delivered");
                 break;
 
             case 2:
+                holder.cancelOrderBtn.setVisibility(View.GONE);
                 holder.orderStatus.setText("status: cancelled");
                 break;
         }
@@ -73,6 +79,19 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
                 openOrderDetailsDialog(order);
             }
         });
+
+        holder.cancelOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCancelOrderDialog(order.getProductName(), order.getOrderId());
+            }
+        });
+    }
+
+    private void openCancelOrderDialog(String productName, int deliveryItemId) {
+        CancelOrderDialog cancelOrderDialog = new CancelOrderDialog();
+        cancelOrderDialog.setValues(productName, deliveryItemId, mCtx);
+        cancelOrderDialog.show(fragmentManager, "cancel order");
     }
 
     private void openOrderDetailsDialog(Order order) {
@@ -88,7 +107,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         TextView productName, productSeller, productPrice, orderStatus;
-        Button orderDetailsBtn;
+        Button orderDetailsBtn, cancelOrderBtn;
         View self;
         ImageView productImage;
 
@@ -101,6 +120,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Orde
             productPrice = (TextView) itemView.findViewById(R.id.orderProductPrice);
             orderStatus = (TextView) itemView.findViewById(R.id.orderStatus);
 
+            cancelOrderBtn = (Button) itemView.findViewById(R.id.orderCancelBtn);
             orderDetailsBtn = (Button) itemView.findViewById(R.id.orderDetailsBtn);
 
             productImage = (ImageView) itemView.findViewById(R.id.orderImage);

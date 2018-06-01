@@ -14,6 +14,16 @@ public class Order {
     private String contactNumber;
     private String deliveryAddress;
 
+    private int orderId;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
     public String getContactPerson() {
         return contactPerson;
     }

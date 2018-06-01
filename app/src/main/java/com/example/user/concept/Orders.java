@@ -1,5 +1,6 @@
 package com.example.user.concept;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -38,11 +39,12 @@ public class Orders extends AppCompatActivity {
     private static final String ACCOUNT_PREFERENCE = "accountPref";
     private static final String PROFILE_ID_KEY = "profile_id";
 
+    private Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
-
         initResources();
     }
 
@@ -51,7 +53,6 @@ public class Orders extends AppCompatActivity {
         getSupportActionBar().setTitle("Orders");
         noRecordView = (TextView) findViewById(R.id.noRecordView);
         ordersRecyclerView = (RecyclerView) findViewById(R.id.ordersRecyclerView);
-
         setOrderList();
     }
 
@@ -81,6 +82,7 @@ public class Orders extends AppCompatActivity {
                             order.setContactPerson(orderObject.getString("contact_person"));
                             order.setDeliveryAddress(orderObject.getString("location"));
                             order.setContactNumber(orderObject.getString("contact_number"));
+                            order.setOrderId(orderObject.getInt("id"));
 
                             orderList.add(order);
                         }

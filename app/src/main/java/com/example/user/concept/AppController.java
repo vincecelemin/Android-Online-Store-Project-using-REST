@@ -30,7 +30,7 @@ import java.util.Map;
  * Created by Power on 3/17/2018.
  */
 
-public class AppController extends Application implements UpdateCartItemQuantityDialog.UpdateCartDialogListener {
+public class AppController extends Application implements UpdateCartItemQuantityDialog.UpdateCartDialogListener, CancelOrderDialog.CancelOrderDialogListener {
     public static final String TAG = AppController.class.getSimpleName();
     private RequestQueue mRequestQueue;
     private static AppController mInstance;
@@ -167,6 +167,12 @@ public class AppController extends Application implements UpdateCartItemQuantity
             };
             AppController.getInstance().addToRequestQueue(strRequest);
         }
+    }
+
+    @Override
+    public void applyTexts(boolean isDeleted, Activity activity) {
+        activity.finish();
+        activity.startActivity(activity.getIntent());
     }
 }
 

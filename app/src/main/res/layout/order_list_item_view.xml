@@ -48,16 +48,36 @@
             android:layout_height="wrap_content"
             android:text="status" />
 
-        <Button
-            android:id="@+id/orderDetailsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_gravity="right"
-            android:background="#000"
-            android:drawableLeft="@drawable/sharp_remove_red_eye_white_24"
-            android:paddingLeft="8dp"
-            android:text="details"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="#fff" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginTop="4dp">
+
+            <Button
+                android:id="@+id/orderCancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="right"
+                android:background="#000"
+                android:drawableLeft="@drawable/sharp_cancel_white_24"
+                android:paddingLeft="4dp"
+                android:text="cancel"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="#fff" />
+
+            <Button
+                android:id="@+id/orderDetailsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="right"
+                android:background="#000"
+                android:drawableLeft="@drawable/sharp_remove_red_eye_white_24"
+                android:paddingLeft="4dp"
+                android:layout_marginLeft="4dp"
+                android:text="details"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="#fff" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

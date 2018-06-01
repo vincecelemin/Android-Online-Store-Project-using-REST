@@ -157,12 +157,11 @@ public class AccountFragment extends Fragment {
 
                         break;
                     case 1:
+                        Intent orderListIntent = new Intent(getActivity(), Orders.class);
+                        
                         getActivity().startActivity(new Intent(getActivity(), Orders.class));
                         break;
                     case 2:
-
-                        break;
-                    case 3:
                         getActivity().startActivity(new Intent(getActivity(), LoadTransactions.class));
                         break;
                 }
