@@ -162,5 +162,6 @@ public class UpdateProfile extends AppCompatActivity {
         lastNameInput.setText(getIntent().getStringExtra("last_name"));
         emailAddressInput.setText(getIntent().getStringExtra("email"));
         addressInput.setText(getIntent().getStringExtra("address"));
+        contactNumberInput.setText(getIntent().getStringExtra("contact_number"));
     }
 }

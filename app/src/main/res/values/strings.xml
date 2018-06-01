@@ -34,4 +34,5 @@
     <string name="productImageBaseURL">http://10.0.2.2/WebFramFinalProj/public/storage/product_images/</string>
     <string name="getCurrentBalance">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getCurrentBalance.php</string>
     <string name="addCustomerLoad">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/addCustomerLoad.php</string>
+    <string name="finalizeCustomerOrder">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/finalizeCustomerOrder.php</string>
 </resources>

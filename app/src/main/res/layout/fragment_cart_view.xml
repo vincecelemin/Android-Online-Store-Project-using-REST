@@ -1,36 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/cartRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/totalItemCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingHorizontal="8dp"
-        android:text="Items: "
-        android:textColor="#000"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="2dp"/>
+        <TextView
+            android:id="@+id/emptyCartView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="32dp"
+            android:text="your cart is empty"
+            android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/totalProductCost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingHorizontal="8dp"
-        android:text="Total Amount: "
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-</LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cartRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/totalItemCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="16dp"
+            android:gravity="right"
+            android:paddingHorizontal="8dp"
+            android:text="Items: "
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/totalProductCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingHorizontal="8dp"
+            android:text="Total Amount: "
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/checkoutBtn"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="16dp"
+            android:background="#000"
+            android:text="proceed to checkout"
+            android:textColor="#fff"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

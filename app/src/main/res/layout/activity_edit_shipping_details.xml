@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".EditShippingDetails">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="full name"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/deliveryPersonInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:hint="delivery person"
+        android:padding="8dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="shipping address"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/deliveryAddressInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:hint="delivery address"
+        android:padding="8dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="contact number"
+        android:textColor="#000" />
+
+    <EditText
+        android:id="@+id/deliveryContactInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:inputType="phone"
+        android:padding="8dp"
+        android:textColor="#fff"
+        android:textColorHint="#fff" />
+
+    <Button
+        android:id="@+id/updateDeliveryInfoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="right"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/button_shape"
+        android:text="update"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+</LinearLayout>
