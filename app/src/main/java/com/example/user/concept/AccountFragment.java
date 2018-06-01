@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,6 +31,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,6 +146,26 @@ public class AccountFragment extends Fragment {
                 topUpIntent.putExtra("email", customerEmail.getText().toString());
                 topUpIntent.putExtra("profile_id", sharedPreferences.getInt(PROFILE_ID_KEY, 0));
                 startActivityForResult(topUpIntent, 2);
+            }
+        });
+
+        functionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(i) {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+                        getActivity().startActivity(new Intent(getActivity(), LoadTransactions.class));
+                        break;
+                }
             }
         });
     }

@@ -42,8 +42,11 @@
         <activity
             android:name=".EditShippingDetails"
             android:theme="@style/AppThemeNav" />
-        <activity android:name=".PaymentSelection"
+        <activity
+            android:name=".PaymentSelection"
             android:theme="@style/AppThemeNav" />
+        <activity android:name=".LoadTransactions"
+            android:theme="@style/AppThemeNav"></activity>
     </application>
 
 </manifest>
