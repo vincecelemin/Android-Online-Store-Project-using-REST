@@ -45,8 +45,11 @@
         <activity
             android:name=".PaymentSelection"
             android:theme="@style/AppThemeNav" />
-        <activity android:name=".LoadTransactions"
-            android:theme="@style/AppThemeNav"></activity>
+        <activity
+            android:name=".LoadTransactions"
+            android:theme="@style/AppThemeNav" />
+        <activity android:name=".Orders"
+            android:theme="@style/AppThemeNav" />
     </application>
 
 </manifest>

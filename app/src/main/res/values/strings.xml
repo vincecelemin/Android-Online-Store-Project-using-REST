@@ -36,4 +36,5 @@
     <string name="addCustomerLoad">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/addCustomerLoad.php</string>
     <string name="finalizeCustomerOrder">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/finalizeCustomerOrder.php</string>
     <string name="getLoadTransactions">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getLoadTransactions.php</string>
+    <string name="getDeliveryItems">http://10.0.2.2/CSELEC2_finals_celemin_cristobal/api/getDeliveryItems.php</string>
 </resources>

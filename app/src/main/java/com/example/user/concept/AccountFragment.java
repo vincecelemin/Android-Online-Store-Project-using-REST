@@ -157,7 +157,7 @@ public class AccountFragment extends Fragment {
 
                         break;
                     case 1:
-
+                        getActivity().startActivity(new Intent(getActivity(), Orders.class));
                         break;
                     case 2:
 

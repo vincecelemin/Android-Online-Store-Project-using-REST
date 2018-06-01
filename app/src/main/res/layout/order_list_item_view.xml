@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_bottom"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/orderImage"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="12dp"
+        android:layout_weight=".2" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".675"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/orderProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product Name"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orderProductSeller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product Seller"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/orderProductPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quantity | Price"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/orderProductStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Delivery Status"
+            android:textColor="#000" />
+    </LinearLayout>
+</LinearLayout>
